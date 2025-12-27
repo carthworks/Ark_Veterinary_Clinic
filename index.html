@@ -1659,6 +1659,76 @@
         });
     </script>
 
+    <!-- Parallax Scrolling Effect Script -->
+    <script>
+        // Smooth parallax scrolling for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+
+            if (heroSection && scrolled < window.innerHeight) {
+                // Parallax effect on background gradient (slower movement)
+                const bgLayer = heroSection.querySelector('::before');
+                heroSection.style.backgroundPositionY = `${scrolled * 0.5}px`;
+
+                // Parallax effect on hero content (medium speed)
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+
+                // Parallax effect on hero slider (slower, creates depth)
+                const heroSlider = document.querySelector('.hero-slider');
+                if (heroSlider) {
+                    heroSlider.style.transform = `translateY(${scrolled * 0.15}px) translateZ(10px) rotateY(-2deg)`;
+                }
+
+                // Fade out hero on scroll for smooth transition
+                const opacity = Math.max(0, 1 - (scrolled / (window.innerHeight * 0.6)));
+                heroSection.style.opacity = opacity;
+            }
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#home') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Enhanced hover effect for hero slider with 3D tilt
+        const heroSlider = document.querySelector('.hero-slider');
+        if (heroSlider) {
+            heroSlider.addEventListener('mousemove', (e) => {
+                const rect = heroSlider.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * 5; // Max 5deg tilt
+                const rotateY = ((x - centerX) / centerX) * -5; // Max 5deg tilt
+
+                heroSlider.style.transform = `translateZ(15px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            heroSlider.addEventListener('mouseleave', () => {
+                heroSlider.style.transform = 'translateZ(10px) rotateY(-2deg)';
+            });
+        }
+    </script>
+
 </body>
 
 </html>

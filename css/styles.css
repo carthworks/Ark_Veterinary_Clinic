@@ -228,14 +228,18 @@ img {
     box-shadow: var(--shadow-lg);
 }
 
-/* Hero Section - Modern & Attractive */
+/* Hero Section - Modern & Attractive with Parallax Effects */
 .hero-section {
     background: linear-gradient(135deg, #EFF6FF 0%, #ECFDF5 50%, #FEF3C7 100%);
     padding: 120px 0 100px;
     position: relative;
     overflow: hidden;
+    /* Enable 3D transforms */
+    perspective: 1000px;
+    transform-style: preserve-3d;
 }
 
+/* Parallax Background Layer 1 - Slow moving gradient */
 .hero-section::before {
     content: '';
     position: absolute;
@@ -518,7 +522,7 @@ img {
 }
 
 
-/* Decorative Elements for Hero */
+/* Decorative Elements for Hero with Parallax */
 .hero-section::after {
     content: '';
     position: absolute;
@@ -528,6 +532,156 @@ img {
     height: 100px;
     background: linear-gradient(to top, var(--white), transparent);
     z-index: 1;
+}
+
+/* Parallax Floating Decorative Elements */
+.hero-section .container {
+    position: relative;
+    z-index: 3;
+}
+
+/* Floating Paw Prints - Parallax Layer 2 */
+.hero-section .container::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.15;
+    top: 10%;
+    left: 5%;
+    animation: floatPaw1 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.hero-section .container::after {
+    content: '🐾';
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.1;
+    top: 60%;
+    right: 8%;
+    animation: floatPaw2 10s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Additional floating hearts for warmth */
+.hero-content::before {
+    content: '❤️';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.12;
+    top: 30%;
+    right: -10%;
+    animation: floatHeart 12s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-content::after {
+    content: '🐾';
+    position: absolute;
+    font-size: 2.8rem;
+    opacity: 0.1;
+    bottom: 10%;
+    left: -5%;
+    animation: floatPaw3 9s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Parallax Float Animations */
+@keyframes floatPaw1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(20px, -30px) rotate(10deg);
+    }
+
+    50% {
+        transform: translate(-10px, -50px) rotate(-5deg);
+    }
+
+    75% {
+        transform: translate(15px, -25px) rotate(8deg);
+    }
+}
+
+@keyframes floatPaw2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    33% {
+        transform: translate(-25px, 40px) rotate(-12deg) scale(1.1);
+    }
+
+    66% {
+        transform: translate(15px, 20px) rotate(8deg) scale(0.95);
+    }
+}
+
+@keyframes floatPaw3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(30px, -40px) rotate(15deg);
+    }
+}
+
+@keyframes floatHeart {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(-20px, -20px) scale(1.05);
+    }
+
+    50% {
+        transform: translate(10px, -35px) scale(0.95);
+    }
+
+    75% {
+        transform: translate(-15px, -15px) scale(1.02);
+    }
+}
+
+/* Enhanced 3D Parallax for Hero Content */
+.hero-content {
+    padding: 40px 0;
+    position: relative;
+    z-index: 2;
+    /* Parallax effect on scroll */
+    transform: translateZ(20px);
+    will-change: transform;
+}
+
+/* Enhanced 3D effect for hero slider */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    /* Add 3D depth */
+    transform: translateZ(10px) rotateY(-2deg);
+    transition: transform 0.6s ease;
+}
+
+.hero-slider:hover {
+    transform: translateZ(15px) rotateY(0deg);
 }
 
 /* About Section */
@@ -792,6 +946,152 @@ img {
     font-size: 3.5rem;
     color: var(--white);
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Before/After Treatment Gallery */
+.before-after-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.before-after-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.before-after-header {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.before-after-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.before-after-slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.before-image,
+.after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.before-image img,
+.after-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Make BEFORE images grayscale (black and white) */
+.before-image img {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+/* Keep AFTER images in full color */
+.after-image {
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path 0.3s ease;
+}
+
+.image-label {
+    position: absolute;
+    top: 20px;
+    padding: 8px 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.before-label {
+    left: 20px;
+    background: linear-gradient(135deg, #6B7280, #4B5563);
+    color: var(--white);
+}
+
+.after-label {
+    right: 20px;
+    background: linear-gradient(135deg, var(--secondary-color), #059669);
+    color: var(--white);
+}
+
+.comparison-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 20;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+    z-index: 15;
+    transition: var(--transition);
+}
+
+.slider-button i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.before-after-slider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.before-after-description {
+    padding: 20px;
+    text-align: center;
+    background: var(--bg-light);
+}
+
+.before-after-description p {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 1rem;
 }
 
 /* Testimonials */
